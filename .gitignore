@@ -14,3 +14,14 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+.idea/vcs.xml
+.idea/symfony2.xml
+.idea/php.xml
+.idea/newstory.iml
+.idea/modules.xml
+.idea/misc.xml
+.idea/dataSources.xml

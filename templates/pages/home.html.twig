@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="jumbotron text-center">
+    <h1 class="display-4 font-weight-bold">Wishlist</h1>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-rose btn-lg" href="#" role="button">Learn more</a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="w-100 p-3">
+            <div class="card-header">
+                <h2>Actuelle liste</h2>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Pièces</th>
+                    <th scope="col">Prix approximatif</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for produit in produits %}
+                <tr>
+                    <th scope="row">{{produit.id}}</th>
+                    <td>{{produit.nom}}</td>
+                    <td>{{ produit.piece.nom }}</td>
+                    <td>{{produit.prix}}</td>
+                    <td><a class="btn btn-primary" [routerLink]="['/produit',produit.id]">Voir</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

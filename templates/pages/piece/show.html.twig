@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col">
+            <img src="https://nextluxury.com/wp-content/uploads/all-black-bathroom-with-modern-design.jpg" class="img-responsive w-100" alt="">
+        </div>
+        <div class="col">
+            <h1>{{ piece.nom }}</h1>
+            <h2>{{ piece.produits.count() }} Produit(s)</h2>
+            <ul class="list-group">
+                {% for produit in piece.produits %}
+                    {% if produit.achete %}
+                    <li class="list-group-item text-success">{{ produit.nom }} <span class="mr-0">Test</span></li>
+                    {% else %}
+                        <li class="list-group-item">{{ produit.nom }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

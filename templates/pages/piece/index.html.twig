@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container mt-5 mb-5">
+    <div class="jumbotron text-center">
+        <h2>Bienvenue chez vous.</h2>
+    </div>
+    <div class="row">
+        {% for piece in pieces %}
+        <div class="card">
+                <img src="https://nextluxury.com/wp-content/uploads/all-black-bathroom-with-modern-design.jpg" class="card-img-top" alt="">
+            <h4 class="card-header">{{ piece.nom }}</h4>
+            <div class="card-body">
+                {% if piece.produits.count > 0 %}
+                <h6>Contenu de cette piece</h6>
+                <ul class="list-group">
+                    {% for produit in piece.produits %}
+                    <li class="list-group-item">{{ produit.nom }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                 <h6>Rien dans cette pièce</h6>
+                {% endif %}
+            </div>
+            <a href="{{ path('piece', {slug: piece.slug}) }}" class="btn btn-primary">Visiter</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

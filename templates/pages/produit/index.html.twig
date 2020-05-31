@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="card w-100">
+            <h4 class="card-header">Liste de vos produits à acheter</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prix approximatif</th>
+                    <th>Acheté ?</th>
+                    <th>Date d'ajout</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.nom }}</td>
+                    <td>{{ produit.prix }}</td>
+                    <td><input id="achete[{{ produit.id }}]" type="checkbox"></td>
+                    <td>{{ produit.createdAt | date('d/m/Y') }}</td>
+                    <td><a href="{{ path('produit_show', {id: produit.id}) }}" class="btn btn-primary">Voir</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
