@@ -40,7 +40,7 @@ class ApiPieceController extends AbstractController
         $pieces = $this->getDoctrine()->getRepository('App:Piece')->findBy(['user' => $this->getUser()]);
 
         return $this->json($pieces, Response::HTTP_OK, [], [
-            ObjectNormalizer::ATTRIBUTES => ['id','nom','slug','uuid','image_url','produits' => ['nom', 'id', 'achete', 'prix', 'slug', 'uuid']],
+            ObjectNormalizer::ATTRIBUTES => ['id','nom','slug','uuid','imageUrl','produits' => ['nom', 'id', 'achete', 'prix', 'slug', 'uuid']],
             ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object;
         }
@@ -105,7 +105,7 @@ class ApiPieceController extends AbstractController
         }
 
         return $this->json($piece, Response::HTTP_OK, [], [
-            ObjectNormalizer::ATTRIBUTES => ['id','nom','slug','uuid','image_url','produits' => ['id','nom','prix','uuid','image_url','slug', 'achete']],
+            ObjectNormalizer::ATTRIBUTES => ['id','nom','slug','uuid','imageUrl','produits' => ['id','nom','prix','uuid','imageUrl','slug', 'achete']],
             ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
                 return $object;
             }

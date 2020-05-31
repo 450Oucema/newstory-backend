@@ -40,7 +40,7 @@ class ApiProduitController extends AbstractController
         $produits = $this->getDoctrine()->getRepository('App:Produit')->findBy(['user' => $this->getUser()]);
 
         return $this->json($produits, Response::HTTP_OK, [], [
-            ObjectNormalizer::ATTRIBUTES => ['id','nom','prix','uuid','image_url','slug', 'achete']
+            ObjectNormalizer::ATTRIBUTES => ['id','nom','prix','uuid','imageUrl','slug', 'achete']
         ]);
     }
 
@@ -135,16 +135,11 @@ class ApiProduitController extends AbstractController
      */
     public function change(Request $request)
     {
+            $produit = $this->repository->findOneBy(['uuid' => $request->request->get('uuid'), 'user' => $this->getUser()]);
 
-        $id = $request->request->get('id');
-        $validator = Validation::createValidator();
-        $violations = $validator->validate($id, [
-            new NotBlank(),
-        ]);
-
-        if (count($violations) === 0) {
-
-            $produit = $this->repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+            if (!$produit) {
+                return $this->json($request->request, Response::HTTP_NOT_FOUND);
+            }
 
             if ($produit->getAchete() === false) {
                 $produit->setAchete(true);
@@ -161,9 +156,6 @@ class ApiProduitController extends AbstractController
                     return $object;
                 }
             ]);
-        } else {
-            return $this->json($id, Response::HTTP_NOT_FOUND);
-        }
     }
 
     /**
