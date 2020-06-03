@@ -45,7 +45,10 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.3"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -81,6 +84,9 @@
         "symfony/symfony": "*"
     },
     "extra": {
+        "php": {
+
+        },
         "symfony": {
             "allow-contrib": false,
             "require": "4.4.*"
