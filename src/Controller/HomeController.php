@@ -3,6 +3,7 @@
 namespace App\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,5 +15,18 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         return new Response('', Response::HTTP_OK, []);
+    }
+
+    /**
+     * @return JsonResponse
+     * @Route("/api/test", name="apitest")
+     */
+    public function test(): JsonResponse
+    {
+        $data = [
+            'username' => $this->getUser()->getUsername()
+        ];
+
+        return new JsonResponse($data);
     }
 }
