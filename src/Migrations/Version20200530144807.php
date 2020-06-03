@@ -24,7 +24,7 @@ final class Version20200530144807 extends AbstractMigration
 
         $this->addSql('ALTER TABLE piece CHANGE user_id user_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE produit ADD image_url VARCHAR(255) DEFAULT NULL, CHANGE piece_id piece_id INT DEFAULT NULL, CHANGE user_id user_id INT DEFAULT NULL, CHANGE prix prix DOUBLE PRECISION DEFAULT NULL, CHANGE liens liens LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\', CHANGE date_achat date_achat DATETIME DEFAULT NULL');
-        $this->addSql('ALTER TABLE user CHANGE roles roles JSON NOT NULL');
+        $this->addSql('ALTER TABLE user CHANGE roles roles VARCHAR NOT NULL');
     }
 
     public function down(Schema $schema) : void
