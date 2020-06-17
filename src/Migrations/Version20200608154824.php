@@ -26,7 +26,7 @@ final class Version20200608154824 extends AbstractMigration
         $this->addSql('ALTER TABLE friend_request CHANGE accepted accepted TINYINT(1) DEFAULT NULL, CHANGE response_date response_date DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE piece CHANGE user_id user_id INT DEFAULT NULL, CHANGE image_url image_url VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE produit CHANGE piece_id piece_id INT DEFAULT NULL, CHANGE user_id user_id INT DEFAULT NULL, CHANGE prix prix DOUBLE PRECISION DEFAULT NULL, CHANGE liens liens LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\', CHANGE date_achat date_achat DATETIME DEFAULT NULL, CHANGE image_url image_url VARCHAR(255) DEFAULT NULL, CHANGE commentaire commentaire VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE user CHANGE roles roles JSON NOT NULL, CHANGE profile_picture_url profile_picture_url VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE user CHANGE roles roles LONGTEXT NOT NULL, CHANGE profile_picture_url profile_picture_url VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void

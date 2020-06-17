@@ -27,7 +27,7 @@ final class Version20200607003735 extends AbstractMigration
         $this->addSql('ALTER TABLE user_user ADD CONSTRAINT FK_F7129A80233D34C1 FOREIGN KEY (user_target) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE piece CHANGE user_id user_id INT DEFAULT NULL, CHANGE image_url image_url VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE produit CHANGE piece_id piece_id INT DEFAULT NULL, CHANGE user_id user_id INT DEFAULT NULL, CHANGE prix prix DOUBLE PRECISION DEFAULT NULL, CHANGE liens liens LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\', CHANGE date_achat date_achat DATETIME DEFAULT NULL, CHANGE image_url image_url VARCHAR(255) DEFAULT NULL, CHANGE commentaire commentaire VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE user ADD private TINYINT(1) NOT NULL, ADD private_for_friends TINYINT(1) NOT NULL, CHANGE roles roles JSON NOT NULL');
+        $this->addSql('ALTER TABLE user ADD private TINYINT(1) NOT NULL, ADD private_for_friends TINYINT(1) NOT NULL, CHANGE roles roles LONGTEXT NOT NULL');
     }
 
     public function down(Schema $schema) : void
