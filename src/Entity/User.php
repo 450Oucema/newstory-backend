@@ -48,10 +48,53 @@ class User implements UserInterface
      */
     private $produits;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $private;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $private_for_friends;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="friends")
+     */
+    private $friends;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profilePictureUrl;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FriendRequest::class, mappedBy="user_responding")
+     */
+    private $friendRequests;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $uuid;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Alert::class, mappedBy="user")
+     */
+    private $alerts;
+
     public function __construct()
     {
         $this->pieces = new ArrayCollection();
         $this->produits = new ArrayCollection();
+        $this->friends = new ArrayCollection();
+        $this->friendRequests = new ArrayCollection();
+        $this->alerts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,6 +231,162 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($produit->getUser() === $this) {
                 $produit->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPrivate(): ?bool
+    {
+        return $this->private;
+    }
+
+    public function setPrivate(bool $private): self
+    {
+        $this->private = $private;
+
+        return $this;
+    }
+
+    public function getPrivateForFriends(): ?bool
+    {
+        return $this->private_for_friends;
+    }
+
+    public function setPrivateForFriends(bool $private_for_friends): self
+    {
+        $this->private_for_friends = $private_for_friends;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getFriends(): Collection
+    {
+        return $this->friends;
+    }
+
+    public function addFriend(self $friend): self
+    {
+        if (!$this->friends->contains($friend)) {
+            $this->friends[] = $friend;
+        }
+
+        return $this;
+    }
+
+    public function removeFriend(self $friend): self
+    {
+        if ($this->friends->contains($friend)) {
+            $this->friends->removeElement($friend);
+        }
+
+        return $this;
+    }
+
+    public function isFriend(self $friend): bool {
+        if ($this->friends->contains($friend)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getProfilePictureUrl(): ?string
+    {
+        return $this->profilePictureUrl;
+    }
+
+    public function setProfilePictureUrl(?string $profilePictureUrl): self
+    {
+        $this->profilePictureUrl = $profilePictureUrl;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FriendRequest[]
+     */
+    public function getFriendRequests(): Collection
+    {
+        return $this->friendRequests;
+    }
+
+    public function addFriendRequest(FriendRequest $friendRequest): self
+    {
+        if (!$this->friendRequests->contains($friendRequest)) {
+            $this->friendRequests[] = $friendRequest;
+            $friendRequest->setUserAsking($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFriendRequest(FriendRequest $friendRequest): self
+    {
+        if ($this->friendRequests->contains($friendRequest)) {
+            $this->friendRequests->removeElement($friendRequest);
+            // set the owning side to null (unless already changed)
+            if ($friendRequest->getUserAsking() === $this) {
+                $friendRequest->setUserAsking(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Alert[]
+     */
+    public function getAlerts(): Collection
+    {
+        return $this->alerts;
+    }
+
+    public function addAlert(Alert $alert): self
+    {
+        if (!$this->alerts->contains($alert)) {
+            $this->alerts[] = $alert;
+            $alert->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlert(Alert $alert): self
+    {
+        if ($this->alerts->contains($alert)) {
+            $this->alerts->removeElement($alert);
+            // set the owning side to null (unless already changed)
+            if ($alert->getUser() === $this) {
+                $alert->setUser(null);
             }
         }
 

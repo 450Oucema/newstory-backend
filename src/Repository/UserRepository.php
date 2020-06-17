@@ -64,4 +64,29 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+    public function search(string $email)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.email')
+            ->andWhere('u.email LIKE :email')
+            ->andWhere('u.private = false')
+            ->setParameter('email', '%'.$email.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function searchFriends($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p, u FROM AppBundle:Post p ' .
+                'JOIN p.user u ' .
+                'JOIN u.friendsWithMe f ' .
+                'WHERE f.id=:userId'
+            )->setParameter('userId', $userId)
+            ->getResult();
+    }
+
+
 }

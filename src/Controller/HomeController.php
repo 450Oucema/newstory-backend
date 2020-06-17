@@ -27,7 +27,8 @@ class HomeController extends AbstractController
     public function test(): JsonResponse
     {
         $data = [
-            'username' => $this->getUser()->getUsername()
+            'username' => $this->getUser()->getUsername(),
+            'notifications' => $this->getDoctrine()->getRepository('App:Alert')->count(['user' => $this->getUser(), 'seen' => false])
         ];
 
         return new JsonResponse($data);

@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Produit;
 use App\Repository\ProduitRepository;
+use App\Repository\UserRepository;
 use Cocur\Slugify\Slugify;
 use phpDocumentor\Reflection\Types\This;
 use Ramsey\Uuid\Uuid;
@@ -37,10 +38,10 @@ class ApiProduitController extends AbstractController
      * @Route("/api/produits/", name="api_produits")
      */
     public function index() {
-        $produits = $this->getDoctrine()->getRepository('App:Produit')->findBy(['user' => $this->getUser()]);
+        $produits = $this->repository->findBy(['user' => $this->getUser()]);
 
         return $this->json($produits, Response::HTTP_OK, [], [
-            ObjectNormalizer::ATTRIBUTES => ['id','nom','prix','uuid','imageUrl','slug', 'achete']
+            ObjectNormalizer::ATTRIBUTES => ['id','nom','prix','uuid','imageUrl','slug', 'achete', 'user' => ['email']]
         ]);
     }
 

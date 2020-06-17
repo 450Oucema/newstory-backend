@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,7 @@ class RegistrationController extends AbstractController
 
         if (0 === count($violations)) {
             $user = new User();
+            $user->setUuid((Uuid::uuid4())->toString());
             $user->setEmail($input['email']);
             $user->setPassword(
                 $passwordEncoder->encodePassword(
