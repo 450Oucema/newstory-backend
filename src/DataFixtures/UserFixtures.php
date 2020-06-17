@@ -26,6 +26,7 @@ class UserFixtures extends Fixture
         $user->setPrivate(false);
         $user->setUuid((Uuid::uuid4())->toString());
         $user->setPrivateForFriends(false);
+        $user->setCreatedAt(new \DateTime('now'));
         $this->setReference('oucema', $user);
 
         $manager->persist($user);
