@@ -48,6 +48,10 @@ class RegistrationController extends AbstractController
                     $input['password']
                 )
             );
+            $user->setCreatedAt(new \DateTime('now'));
+            $user->setPrivateForFriends(false);
+            $user->setPrivate(false);
+            $user->setUuid((Uuid::uuid4())->toString());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
