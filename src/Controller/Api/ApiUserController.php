@@ -74,10 +74,23 @@ class ApiUserController extends AbstractController
         $violations = $validator->validate($input, $constraints, $groups);
 
         if (0 === count($violations)) {
+
+            if ($request->request->get('private') === "true") {
+                $privateAccount = true;
+            } else {
+                $privateAccount = false;
+            }
+
+            if ($request->request->get('privateForFriends') === "true") {
+                $privateForFriends = true;
+            } else {
+                $privateForFriends = false;
+            }
+
             $user->setEmail($input['email']);
             $user->setProfilePictureUrl($input['profilePictureUrl']);
-            $user->setPrivate($input['private']);
-            $user->setPrivateForFriends($input['privateForFriends']);
+            $user->setPrivate($privateAccount);
+            $user->setPrivateForFriends($privateForFriends);
 
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
