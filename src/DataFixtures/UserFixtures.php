@@ -24,8 +24,8 @@ class UserFixtures extends Fixture
         $user->setRoles(["ROLE_ADMIN"]);
         $user->setPassword($this->encoder->encodePassword($user,'oucemahe10'));
         $user->setPrivate(false);
-        $user->setUuid((Uuid::uuid4())->toString());
         $user->setPrivateForFriends(false);
+        $user->setUuid((Uuid::uuid4())->toString());
         $user->setCreatedAt(new \DateTime('now'));
         $this->setReference('oucema', $user);
 
