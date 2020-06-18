@@ -82,10 +82,7 @@ class ApiUserController extends AbstractController
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->json($user, Response::HTTP_OK, [], [
-                ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function($obj) {
-                return $obj;
-                }
+            return $this->json($request->request, Response::HTTP_OK, [], [
             ]);
         } else {
             $errors = [];
