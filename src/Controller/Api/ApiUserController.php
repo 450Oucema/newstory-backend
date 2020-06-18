@@ -95,7 +95,7 @@ class ApiUserController extends AbstractController
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->json($request->request, Response::HTTP_OK, [], [
+            return $this->json('success', Response::HTTP_OK, [], [
             ]);
         } else {
             $errors = [];
